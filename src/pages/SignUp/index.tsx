@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Text} from 'react-native';
 import {
@@ -17,6 +17,8 @@ import EmailIcon from '../../assets/email.svg';
 import LockIcon from '../../assets/lock.svg';
 import PersonIcon from '../../assets/person.svg';
 import {SignInInput} from '../../components/SignInInput';
+import {signUp} from '../../services/singUp';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export function SignUp() {
   const [name, setName] = useState();
@@ -28,7 +30,18 @@ export function SignUp() {
     navigation.navigate('SingIn');
   };
 
-  const handleSignClick = () => {};
+  const handleSignClick = async () => {
+    if (name != '' && email != '' && password != '') {
+      console.log('caiu');
+      const response = await signUp(name, email, password);
+
+      if (response.data.token) {
+        alert('deu certo');
+      } else {
+        alert(response.data.error);
+      }
+    }
+  };
 
   return (
     <Container>
@@ -54,7 +67,7 @@ export function SignUp() {
             secureTextEntry={true}
             onChangeText={t => setPassword(t)}
           />
-          <CustomButton OnPress={handleSignClick}>
+          <CustomButton onPress={handleSignClick}>
             <CustomButtomText>Cadastrar</CustomButtomText>
           </CustomButton>
         </InputArea>
