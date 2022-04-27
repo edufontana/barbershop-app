@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {api} from './api';
 
-export const checkToken = async token => {
+export const checkToken = async ({token}) => {
   try {
     const req = await api.post('auth/refresh', {
       headers: {},

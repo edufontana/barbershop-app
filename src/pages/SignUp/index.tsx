@@ -19,12 +19,14 @@ import PersonIcon from '../../assets/person.svg';
 import {SignInInput} from '../../components/SignInInput';
 import {signUp} from '../../services/singUp';
 import AsyncStorage from '@react-native-community/async-storage';
+import {UserContext} from '../../contexts/UserContext';
 
 export function SignUp() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
   const navigation = useNavigation();
+  const {state, dispatch} = useContext(UserContext);
 
   const handleMessageButtonClick = () => {
     navigation.navigate('SingIn');
@@ -32,11 +34,19 @@ export function SignUp() {
 
   const handleSignClick = async () => {
     if (name != '' && email != '' && password != '') {
-      console.log('caiu');
       const response = await signUp(name, email, password);
 
       if (response.data.token) {
-        alert('deu certo');
+        await AsyncStorage.setItem('token', response.data.token);
+
+        dispatch({
+          type: 'setAvatar',
+          payload: {
+            avatar: response.data.data.avatar,
+          },
+        });
+
+        navigation.navigate('MainTab');
       } else {
         alert(response.data.error);
       }
