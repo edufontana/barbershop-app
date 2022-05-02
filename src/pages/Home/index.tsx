@@ -1,5 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import {Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {request, PERMISSIONS} from 'react-native-permissions';
+import Geolocation from '@react-native-community/geolocation';
+import {getBarbers} from '../../services/getBarbers';
 
 import {
   Container,
@@ -10,6 +14,7 @@ import {
   LocationArea,
   LocationInput,
   LocationFinder,
+  LoadingIcon,
 } from './styles';
 
 import SearchIcon from '../../assets/search.svg';
@@ -18,7 +23,48 @@ import MyLocationIcon from '../../assets/my_location.svg';
 export function Home() {
   const navigation = useNavigation();
 
-  const [locationText, setLocationText] = useState('aaa');
+  const [locationText, setLocationText] = useState('');
+  const [coords, setCoords] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [list, setList] = useState([]);
+
+  const handleLocationFinder = async () => {
+    setCoords(null);
+
+    const result = await request(
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.LOCATION_WHEN_IN_USE
+        : PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
+    );
+
+    setLoading(true);
+    setLocationText('');
+    setList([]);
+    if (result === 'granted') {
+      Geolocation.getCurrentPosition(info => {
+        setCoords(info.coords);
+      });
+    }
+  };
+
+  const getBarbersResquet = async () => {
+    setLoading(true);
+    setList([]);
+    const response = await getBarbers();
+    console.log(response.data.data);
+
+    if (response.data.error === '') {
+      setList(response.data.data);
+    } else {
+      alert(response.error);
+    }
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    getBarbersResquet();
+  }, []);
 
   return (
     <Container>
@@ -40,10 +86,11 @@ export function Home() {
             onChangeText={text => setLocationText(text)}
             value={locationText}
           />
-          <LocationFinder>
+          <LocationFinder onPress={handleLocationFinder}>
             <MyLocationIcon width="24" height="24" fill="#fff" />
           </LocationFinder>
         </LocationArea>
+        {loading && <LoadingIcon size="large" color="#fff" />}
       </Scroller>
     </Container>
   );
