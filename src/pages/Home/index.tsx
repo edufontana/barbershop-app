@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {request, PERMISSIONS} from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
 import {getBarbers} from '../../services/getBarbers';
+import {BarberItem} from '../../components/BarberItem';
 
 import {
   Container,
@@ -15,6 +16,7 @@ import {
   LocationInput,
   LocationFinder,
   LoadingIcon,
+  ListArea,
 } from './styles';
 
 import SearchIcon from '../../assets/search.svg';
@@ -54,6 +56,10 @@ export function Home() {
     console.log(response.data.data);
 
     if (response.data.error === '') {
+      if (response.data.loc) {
+        setLocationText(response.data.loc);
+      }
+
       setList(response.data.data);
     } else {
       alert(response.error);
@@ -91,6 +97,12 @@ export function Home() {
           </LocationFinder>
         </LocationArea>
         {loading && <LoadingIcon size="large" color="#fff" />}
+
+        <ListArea>
+          {list.map((item, k) => (
+            <BarberItem key={k} data={item} />
+          ))}
+        </ListArea>
       </Scroller>
     </Container>
   );
