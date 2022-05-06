@@ -48,6 +48,7 @@ export function Home() {
         setCoords(info.coords);
       });
     }
+    getBarbersResquet();
   };
 
   const onRefresh = () => {
@@ -55,10 +56,24 @@ export function Home() {
     getBarbersResquet();
   };
 
+  const handleSearch = async () => {
+    setCoords(null);
+    getBarbersResquet();
+  };
+
   const getBarbersResquet = async () => {
     setLoading(true);
     setList([]);
-    const response = await getBarbers();
+
+    let lat = null;
+    let lng = null;
+
+    if (coords) {
+      lat = coords.latitude;
+      lng = coords.longuitude;
+    }
+
+    const response = await getBarbers(lat, lng, locationText);
     console.log(response.data.data);
 
     if (response.data.error === '') {
@@ -100,6 +115,8 @@ export function Home() {
             placeholderTextColor={'#fff'}
             onChangeText={text => setLocationText(text)}
             value={locationText}
+            onEndEditing={handleSearch}
+            onBlur={handleSearch}
           />
           <LocationFinder onPress={handleLocationFinder}>
             <MyLocationIcon width="24" height="24" fill="#fff" />
