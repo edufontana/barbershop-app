@@ -1,5 +1,6 @@
 import React from 'react';
 import {Stars} from '../Stars';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   Container,
@@ -11,13 +12,28 @@ import {
 } from './styles';
 
 interface Iprops {
-  name: string;
-  avatar: string;
+  data: {
+    name: string;
+    id: string;
+    stars: number;
+    avatar: string;
+  };
 }
 
 export function BarberItem({data}: Iprops) {
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    navigation.navigate('Barber', {
+      id: data.id,
+      avatar: data.avatar,
+      name: data.name,
+      stars: data.stars,
+    });
+  };
+
   return (
-    <Container>
+    <Container onPress={handleClick}>
       <Avatar source={{uri: data.avatar}} />
       <InfoArea>
         <UserName>{data.name}</UserName>
