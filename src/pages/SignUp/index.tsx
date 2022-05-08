@@ -29,7 +29,7 @@ export function SignUp() {
   const {state, dispatch} = useContext(UserContext);
 
   const handleMessageButtonClick = () => {
-    navigation.navigate('SingIn');
+    navigation.navigate('SignIn');
   };
 
   const handleSignClick = async () => {

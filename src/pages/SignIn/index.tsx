@@ -44,7 +44,9 @@ export function SignIn() {
           },
         });
 
-        navigation.navigate('MainTab');
+        navigation.reset({
+          routes: [{name: 'MainTab'}],
+        });
       } else {
         alert('email ou senha errados');
       }

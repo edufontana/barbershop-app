@@ -11,12 +11,12 @@ export function MainStack() {
 
   return (
     <Stack.Navigator
-      initialRouteName="Preload"
+      initialRouteName="SignIn"
       screenOptions={{
         headerShown: false,
       }}>
       <Stack.Screen name="Preload" component={Preload} />
-      <Stack.Screen name="SingIn" component={SignIn} />
+      <Stack.Screen name="SignIn" component={SignIn} />
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="MainTab" component={MainTab} />
       <Stack.Screen name="Barber" component={Barber} />

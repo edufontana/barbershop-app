@@ -36,7 +36,7 @@ export function Preload() {
           alert(response.data.error);
         }
       } else {
-        navigation.navigate('SingIn' as never);
+        navigation.navigate('SignIn');
       }
     };
 
