@@ -32,19 +32,18 @@ export function Barber() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(userInfo.id);
     setLoading(true);
     const getBarberInfo = async () => {
-      const {data} = await getBarber(userInfo.id);
+      const req = await getBarber(userInfo.id);
 
-      if (data.error === '') {
-        setUserInfo(data);
+      if (req.data.error === '') {
+        setUserInfo(req.data.data);
       } else {
-        console.log(data.error);
+        console.log('error', req.data.error);
       }
     };
     setLoading(false);
-
+    console.log(userInfo);
     getBarberInfo();
   }, []);
 
@@ -56,11 +55,16 @@ export function Barber() {
             style={{height: 240}}
             dot={<SwiperDot />}
             activeDot={<SwipeActiveDot />}
-            paginationStyle={{top: 15, right: 15, bottom: 0, left: 0}}
+            paginationStyle={{top: 15, right: 15, bottom: null, left: null}}
             autoplay={true}>
             {userInfo.photos.map((item, key) => (
               <SwipeItem key={key}>
-                <SwipeImage source={{uri: item.url}} resizeMode="cover" />
+                <SwipeImage
+                  source={{
+                    uri: item.url,
+                  }}
+                  resizeMode="cover"
+                />
               </SwipeItem>
             ))}
           </Swiper>
