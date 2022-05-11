@@ -15,7 +15,12 @@ export const Scroller = styled.ScrollView`
 
 export const FakeSwipper = styled.View``;
 
-export const Content = styled.View``;
+export const Content = styled.View`
+  background-color: #fff;
+  border-top-left-radius: 50px;
+  margin-top: -50px;
+  height: 400px;
+`;
 
 export const UserInfoArea = styled.View``;
 

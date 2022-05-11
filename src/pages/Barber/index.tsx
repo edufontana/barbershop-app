@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import {getBarber} from '../../services/getBarber';
+import {Stars} from '../../components/Stars';
+import FavoriteIcon from '../../assets/favorite.svg';
 
 import {
   Container,
@@ -15,6 +17,10 @@ import {
   SwipeActiveDot,
   SwipeItem,
   SwipeImage,
+  UserAvatar,
+  UserInfo,
+  UserInfoName,
+  UserFavButton,
 } from './styles';
 import Swiper from 'react-native-swiper';
 
@@ -72,7 +78,16 @@ export function Barber() {
           <FakeSwipper />
         )}
         <Content>
-          <UserInfoArea />
+          <UserInfoArea>
+            <UserAvatar source={{uri: userInfo.avatar}} />
+            <UserInfo>
+              <UserInfoName>{userInfo.name}</UserInfoName>
+              <Stars stars={userInfo.stars} showNumber={true} />
+            </UserInfo>
+            <UserFavButton>
+              <FavoriteIcon width="24" height="24" fill="#ff0000" />
+            </UserFavButton>
+          </UserInfoArea>
           <ServiceArea />
           <TestimonialArea />
         </Content>
