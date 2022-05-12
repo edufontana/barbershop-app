@@ -13,7 +13,11 @@ export const Scroller = styled.ScrollView`
   flex: 1;
 `;
 
-export const FakeSwipper = styled.View``;
+export const FakeSwipper = styled.View`
+  height: 240px;
+  width: 100%;
+  background-color: #63c2d1;
+`;
 
 export const Content = styled.View`
   background-color: #fff;
@@ -91,4 +95,11 @@ export const UserFavButton = styled.TouchableOpacity`
   margin-right: 20px;
   margin-left: 20px;
   margin-top: 20px;
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
 `;

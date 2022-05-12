@@ -3,6 +3,7 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import {getBarber} from '../../services/getBarber';
 import {Stars} from '../../components/Stars';
 import FavoriteIcon from '../../assets/favorite.svg';
+import BackIcon from '../../assets/back.svg';
 
 import {
   Container,
@@ -21,6 +22,7 @@ import {
   UserInfo,
   UserInfoName,
   UserFavButton,
+  BackButton,
 } from './styles';
 import Swiper from 'react-native-swiper';
 
@@ -52,6 +54,10 @@ export function Barber() {
     console.log(userInfo);
     getBarberInfo();
   }, []);
+
+  const handleBackButton = () => {
+    navigation.goBack();
+  };
 
   return (
     <Container>
@@ -92,6 +98,9 @@ export function Barber() {
           <TestimonialArea />
         </Content>
       </Scroller>
+      <BackButton onPress={handleBackButton}>
+        <BackIcon width="44" height="44" fill="#fff" />
+      </BackButton>
     </Container>
   );
 }
