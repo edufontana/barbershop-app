@@ -27,8 +27,6 @@ export const Content = styled.View`
   width: 100%;
 `;
 
-export const ServiceArea = styled.View``;
-
 export const TestimonialArea = styled.View``;
 
 export const SwiperDot = styled.View`
@@ -102,4 +100,56 @@ export const BackButton = styled.TouchableOpacity`
   top: 0;
   left: 0;
   z-index: 9;
+`;
+
+export const LoadingIcon = styled.ActivityIndicator`
+  margin-top: 50px;
+`;
+
+export const ServiceArea = styled.View`
+  margin-top: 40px;
+
+  width: 100%;
+`;
+
+export const ServicesTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #268596;
+  margin-left: 30px;
+  margin-bottom: 20px;
+`;
+
+export const ServiceItem = styled.View`
+  flex-direction: row;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-bottom: 20px;
+
+  justify-content: space-between;
+`;
+
+export const ServiceInfo = styled.View``;
+
+export const ServiceName = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #268596;
+`;
+
+export const ServicePrice = styled.Text`
+  font-size: 14px;
+  color: #268596;
+`;
+
+export const ServiceChooseButton = styled.TouchableOpacity`
+  background-color: #4eadbe;
+  border-radius: 10px;
+  padding: 10px 15px;
+`;
+
+export const ServiceChooseBtnText = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
 `;

@@ -23,7 +23,16 @@ import {
   UserInfoName,
   UserFavButton,
   BackButton,
+  LoadingIcon,
+  ServicesTitle,
+  ServiceItem,
+  ServiceInfo,
+  ServiceName,
+  ServicePrice,
+  ServiceChooseButton,
+  ServiceChooseBtnText,
 } from './styles';
+
 import Swiper from 'react-native-swiper';
 
 export function Barber() {
@@ -94,7 +103,27 @@ export function Barber() {
               <FavoriteIcon width="24" height="24" fill="#ff0000" />
             </UserFavButton>
           </UserInfoArea>
-          <ServiceArea />
+
+          {loading && <LoadingIcon size="large" color="#000000" />}
+
+          {userInfo.services && (
+            <ServiceArea>
+              <ServicesTitle>Lista de serviços</ServicesTitle>
+
+              {userInfo.services.map((item, key) => (
+                <ServiceItem key={key}>
+                  <ServiceInfo>
+                    <ServiceName>{item.name}</ServiceName>
+                    <ServicePrice>R$ {item.price}</ServicePrice>
+                  </ServiceInfo>
+                  <ServiceChooseButton>
+                    <ServiceChooseBtnText>Agendar</ServiceChooseBtnText>
+                  </ServiceChooseButton>
+                </ServiceItem>
+              ))}
+            </ServiceArea>
+          )}
+
           <TestimonialArea />
         </Content>
       </Scroller>
