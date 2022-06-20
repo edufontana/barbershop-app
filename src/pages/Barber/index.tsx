@@ -4,6 +4,7 @@ import {getBarber} from '../../services/getBarber';
 import {Stars} from '../../components/Stars';
 import FavoriteIcon from '../../assets/favorite.svg';
 import BackIcon from '../../assets/back.svg';
+import NavPreIcon from '../../assets/nav_prev.svg';
 
 import {
   Container,
@@ -31,6 +32,10 @@ import {
   ServicePrice,
   ServiceChooseButton,
   ServiceChooseBtnText,
+  TestimonialItem,
+  TestimonialInfo,
+  TestimonialName,
+  TestimonialBody,
 } from './styles';
 
 import Swiper from 'react-native-swiper';
@@ -124,7 +129,26 @@ export function Barber() {
             </ServiceArea>
           )}
 
-          <TestimonialArea />
+          {userInfo.testimonials && userInfo.testimonials.length > 0 && (
+            <TestimonialArea>
+              <Swiper
+                style={{height: 110}}
+                showsPagination={false}
+                showsButtons={true}
+                prevButton={<NavPreIcon width="35" height="35" fill="#000" />}
+                nextButton={<NavPreIcon width="35" height="35" fill="#000" />}>
+                {userInfo.testimonials.map((item, key) => (
+                  <TestimonialItem key={key}>
+                    <TestimonialInfo>
+                      <TestimonialName>{item.name}</TestimonialName>
+                      <Stars stars={item.rate} showNumber={false} />
+                    </TestimonialInfo>
+                    <TestimonialBody>{item.body}</TestimonialBody>
+                  </TestimonialItem>
+                ))}
+              </Swiper>
+            </TestimonialArea>
+          )}
         </Content>
       </Scroller>
       <BackButton onPress={handleBackButton}>
