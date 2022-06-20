@@ -23,7 +23,6 @@ export const Content = styled.View`
   background-color: #fff;
   border-top-left-radius: 50px;
   margin-top: -50px;
-  height: 400px;
   width: 100%;
 `;
 
@@ -160,8 +159,10 @@ export const TestimonialItem = styled.View`
   background-color: #258596;
   padding: 15px;
   border-radius: 10px;
-  height: 110px;
+  height: 100%;
   justify-content: center;
+  margin-left: 50px;
+  margin-right: 50px;
 `;
 
 export const TestimonialInfo = styled.View`

@@ -134,7 +134,7 @@ export function Barber() {
               <Swiper
                 style={{height: 110}}
                 showsPagination={false}
-                showsButtons={true}
+                showsButtons={false}
                 prevButton={<NavPreIcon width="35" height="35" fill="#000" />}
                 nextButton={<NavPreIcon width="35" height="35" fill="#000" />}>
                 {userInfo.testimonials.map((item, key) => (
