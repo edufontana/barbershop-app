@@ -77,3 +77,36 @@ export const FinishText = styled.Text`
   font-weight: bold;
   color: #fff;
 `;
+
+export const DateInfo = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DatePrevArea = styled.TouchableOpacity`
+  flex: 1;
+  align-items: flex-end;
+
+  justify-content: flex-end;
+`;
+
+export const DateTitleArea = styled.View`
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 140px;
+`;
+
+export const DateTitle = styled.Text`
+  font-size: 17px;
+  font-weight: bold;
+  color: #000;
+`;
+
+export const DateNextArea = styled.TouchableOpacity`
+  flex: 1;
+  align-items: flex-start;
+
+  justify-content: flex-start;
+`;
