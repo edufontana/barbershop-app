@@ -48,3 +48,32 @@ export const ViewWrapper = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+
+export const ServiceInfo = styled.View`
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+`;
+
+export const ServiceName = styled.Text`
+  font-weight: bold;
+`;
+
+export const ServicePrice = styled.Text`
+  font-weight: bold;
+`;
+
+export const FinishButton = styled.TouchableOpacity`
+  background-color: #268596;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  border-radius: 10px;
+`;
+
+export const FinishText = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+`;

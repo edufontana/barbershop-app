@@ -9,6 +9,11 @@ import {
   UserAvatar,
   UserName,
   ViewWrapper,
+  ServiceInfo,
+  ServiceName,
+  ServicePrice,
+  FinishButton,
+  FinishText,
 } from './styles';
 import {useNavigation} from '@react-navigation/native';
 import ExpandIcon from '../../assets/expand.svg';
@@ -19,6 +24,8 @@ export function BarberModal({show, setShow, user, service}) {
   const handleCloseModal = () => {
     setShow(!show);
   };
+
+  const handleFinishClick = () => {};
 
   return (
     <Modal visible={show} transparent={true}>
@@ -40,6 +47,21 @@ export function BarberModal({show, setShow, user, service}) {
               </UserInfo>
             </ViewWrapper>
           </ModalItem>
+
+          {service !== null && (
+            <ModalItem>
+              <ServiceInfo>
+                <ServiceName>{user.services[service].name}</ServiceName>
+                <ServicePrice>
+                  R$ {user.services[service].price.toFixed(2)}
+                </ServicePrice>
+              </ServiceInfo>
+            </ModalItem>
+          )}
+
+          <FinishButton onPress={handleFinishClick}>
+            <FinishText>Finalizar Agendamento</FinishText>
+          </FinishButton>
         </ModalBody>
       </ModalArea>
     </Modal>
