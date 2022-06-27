@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Modal,
   ModalArea,
@@ -28,6 +28,20 @@ import NavNextIcon from '../../assets/next.svg';
 
 export function BarberModal({show, setShow, user, service}) {
   const navigation = useNavigation();
+  const [selectedYear, setSelectedYear] = useState(0);
+  const [selectedMonth, setSelectedMonth] = useState(0);
+  const [selectedDay, setSelectedDay] = useState(0);
+  const [selectedHour, setSelectedHour] = useState(null);
+  const [listDays, setListDays] = useState([]);
+  const [listHours, setListHours] = useState([]);
+
+  useEffect(() => {
+    let today = new Date();
+
+    setSelectedYear(today.getFullYear());
+    setSelectedMonth(today.getMonth());
+    setSelectedDay(today.getDate());
+  }, []);
 
   const months = [
     'Janeiro',
@@ -90,7 +104,9 @@ export function BarberModal({show, setShow, user, service}) {
                 <NavPreIcon width="35" height="35" fill="#eeee" />
               </DatePrevArea>
               <DateTitleArea>
-                <DateTitle>junho 2022</DateTitle>
+                <DateTitle>
+                  {months[selectedMonth]} {selectedYear}
+                </DateTitle>
               </DateTitleArea>
               <DateNextArea>
                 <NavNextIcon width="35" height="35" fill="#eeee" />
