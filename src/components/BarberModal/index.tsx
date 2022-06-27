@@ -19,6 +19,7 @@ import {
   DateTitleArea,
   DateTitle,
   DateNextArea,
+  DateList,
 } from './styles';
 
 import {useNavigation} from '@react-navigation/native';
@@ -66,6 +67,22 @@ export function BarberModal({show, setShow, user, service}) {
 
   const handleFinishClick = () => {};
 
+  const handleDateLeftClick = () => {
+    let mountDate = new Date(selectedYear, selectedMonth, 1);
+    mountDate.setMonth(mountDate.getMonth() - 1);
+    setSelectedYear(mountDate.getFullYear());
+    setSelectedMonth(mountDate.getMonth());
+    setSelectedDay(1);
+  };
+
+  const handleDateRightClick = () => {
+    let mountDate = new Date(selectedYear, selectedMonth, 1);
+    mountDate.setMonth(mountDate.getMonth() + 1);
+    setSelectedYear(mountDate.getFullYear());
+    setSelectedMonth(mountDate.getMonth());
+    setSelectedDay(1);
+  };
+
   return (
     <Modal visible={show} transparent={true}>
       <ModalArea>
@@ -100,7 +117,7 @@ export function BarberModal({show, setShow, user, service}) {
 
           <ModalItem>
             <DateInfo>
-              <DatePrevArea>
+              <DatePrevArea onPress={handleDateLeftClick}>
                 <NavPreIcon width="35" height="35" fill="#eeee" />
               </DatePrevArea>
               <DateTitleArea>
@@ -108,10 +125,15 @@ export function BarberModal({show, setShow, user, service}) {
                   {months[selectedMonth]} {selectedYear}
                 </DateTitle>
               </DateTitleArea>
-              <DateNextArea>
+              <DateNextArea onPress={handleDateRightClick}>
                 <NavNextIcon width="35" height="35" fill="#eeee" />
               </DateNextArea>
             </DateInfo>
+
+            <DateList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
           </ModalItem>
 
           <FinishButton onPress={handleFinishClick}>

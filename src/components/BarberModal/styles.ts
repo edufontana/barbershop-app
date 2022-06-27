@@ -110,3 +110,5 @@ export const DateNextArea = styled.TouchableOpacity`
 
   justify-content: flex-start;
 `;
+
+export const DateList = styled.ScrollView``;
