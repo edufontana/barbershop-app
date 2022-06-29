@@ -20,6 +20,9 @@ import {
   DateTitle,
   DateNextArea,
   DateList,
+  DateItem,
+  DateItemWeekDay,
+  DateItemNumber,
 } from './styles';
 
 import {useNavigation} from '@react-navigation/native';
@@ -32,7 +35,7 @@ export function BarberModal({show, setShow, user, service}) {
   const [selectedYear, setSelectedYear] = useState(0);
   const [selectedMonth, setSelectedMonth] = useState(0);
   const [selectedDay, setSelectedDay] = useState(0);
-  const [selectedHour, setSelectedHour] = useState(null);
+  const [selectedHour, setSelectedHour] = useState(0);
   const [listDays, setListDays] = useState([]);
   const [listHours, setListHours] = useState([]);
 
@@ -43,6 +46,39 @@ export function BarberModal({show, setShow, user, service}) {
     setSelectedMonth(today.getMonth());
     setSelectedDay(today.getDate());
   }, []);
+
+  useEffect(() => {
+    if (user.available) {
+      let dayInMonth = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+      let newListDays = [];
+      let days = [];
+
+      for (let i = 1; i <= dayInMonth; i++) {
+        let d = new Date(selectedYear, selectedMonth, i);
+        let year = d.getFullYear();
+        let month = d.getMonth() + 1;
+        let day = d.getDate();
+        month = month < 10 ? '0' + month : month;
+        day = day < 10 ? '0' + day : day;
+        let selDate = `${year} - ${month} - ${day}`;
+
+        let availability = user.available.filter(e => e.date === selDate);
+
+        newListDays.push({
+          status: availability.lenght > 0 ? true : false,
+          weekday: Days[d.getDay()],
+          number: i,
+        });
+      }
+
+      setListDays(newListDays);
+      setSelectedDay(1);
+      setListHours([]);
+      setSelectedHour(0);
+
+      console.log(dayInMonth);
+    }
+  }, [selectedMonth, selectedYear]);
 
   const months = [
     'Janeiro',
@@ -130,10 +166,14 @@ export function BarberModal({show, setShow, user, service}) {
               </DateNextArea>
             </DateInfo>
 
-            <DateList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            />
+            <DateList horizontal={true} showsHorizontalScrollIndicator={false}>
+              {listDays.map((item, key) => (
+                <DateItem key={key} onPress={() => {}}>
+                  <DateItemWeekDay>{item.weekday}</DateItemWeekDay>
+                  <DateItemNumber>{item.number}</DateItemNumber>
+                </DateItem>
+              ))}
+            </DateList>
           </ModalItem>
 
           <FinishButton onPress={handleFinishClick}>

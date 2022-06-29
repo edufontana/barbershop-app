@@ -112,3 +112,24 @@ export const DateNextArea = styled.TouchableOpacity`
 `;
 
 export const DateList = styled.ScrollView``;
+
+export const DateItem = styled.TouchableOpacity`
+  width: 45px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+`;
+
+export const DateItemWeekDay = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+`;
+
+export const DateItemNumber = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+`;
