@@ -78,7 +78,7 @@ export function BarberModal({show, setShow, user, service}) {
 
       console.log(dayInMonth);
     }
-  }, [selectedMonth, selectedYear]);
+  }, [user, selectedMonth, selectedYear]);
 
   const months = [
     'Janeiro',
@@ -108,7 +108,7 @@ export function BarberModal({show, setShow, user, service}) {
     mountDate.setMonth(mountDate.getMonth() - 1);
     setSelectedYear(mountDate.getFullYear());
     setSelectedMonth(mountDate.getMonth());
-    setSelectedDay(1);
+    setSelectedDay(0);
   };
 
   const handleDateRightClick = () => {
@@ -116,7 +116,7 @@ export function BarberModal({show, setShow, user, service}) {
     mountDate.setMonth(mountDate.getMonth() + 1);
     setSelectedYear(mountDate.getFullYear());
     setSelectedMonth(mountDate.getMonth());
-    setSelectedDay(1);
+    setSelectedDay(0);
   };
 
   return (
@@ -168,9 +168,28 @@ export function BarberModal({show, setShow, user, service}) {
 
             <DateList horizontal={true} showsHorizontalScrollIndicator={false}>
               {listDays.map((item, key) => (
-                <DateItem key={key} onPress={() => {}}>
-                  <DateItemWeekDay>{item.weekday}</DateItemWeekDay>
-                  <DateItemNumber>{item.number}</DateItemNumber>
+                <DateItem
+                  key={key}
+                  onPress={() => {
+                    item.status ? setSelectedDay(item.number) : null;
+                  }}
+                  style={{
+                    opacity: item.status ? 1 : 0.5,
+                    backgroundColor:
+                      item.number === selectedDay ? '#4eafbe' : '#fff',
+                  }}>
+                  <DateItemWeekDay
+                    style={{
+                      color: item.number === selectedDay ? '#fff' : '#000',
+                    }}>
+                    {item.weekday}
+                  </DateItemWeekDay>
+                  <DateItemNumber
+                    style={{
+                      color: item.number === selectedDay ? '#fff' : '#000',
+                    }}>
+                    {item.number}
+                  </DateItemNumber>
                 </DateItem>
               ))}
             </DateList>
