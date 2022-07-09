@@ -23,6 +23,9 @@ import {
   DateItem,
   DateItemWeekDay,
   DateItemNumber,
+  TimeList,
+  TimeItem,
+  TimeItemText,
 } from './styles';
 
 import {useNavigation} from '@react-navigation/native';
@@ -38,6 +41,25 @@ export function BarberModal({show, setShow, user, service}) {
   const [selectedHour, setSelectedHour] = useState(0);
   const [listDays, setListDays] = useState([]);
   const [listHours, setListHours] = useState([]);
+
+  useEffect(() => {
+    if (user.available && selectedDay > 0) {
+      let d = new Date(selectedYear, selectedMonth, selectedDay);
+
+      let year = d.getFullYear();
+      let month = d.getMonth() + 1;
+      let day = d.getDate();
+      month = month < 10 ? '0' + month : month;
+      day = day < 10 ? '0' + day : day;
+      let selDate = `${year} - ${month} - ${day}`;
+
+      let availability = user.available.filter(e => e.date === selDate);
+
+      if (availability.length > 0) {
+        setListHours(availability[0].hours);
+      }
+    }
+  }, [selectedDay, user]);
 
   useEffect(() => {
     let today = new Date();
@@ -194,6 +216,18 @@ export function BarberModal({show, setShow, user, service}) {
               ))}
             </DateList>
           </ModalItem>
+
+          {listHours.length > 0 && (
+            <ModalItem>
+              <TimeList horizontal={true}>
+                {listHours.map((item, key) => (
+                  <TimeItem key={key} onPress={() => {}}>
+                    <TimeItemText>{item}</TimeItemText>
+                  </TimeItem>
+                ))}
+              </TimeList>
+            </ModalItem>
+          )}
 
           <FinishButton onPress={handleFinishClick}>
             <FinishText>Finalizar Agendamento</FinishText>

@@ -133,3 +133,17 @@ export const DateItemNumber = styled.Text`
   font-weight: bold;
   color: #fff;
 `;
+
+export const TimeList = styled.ScrollView``;
+
+export const TimeItem = styled.TouchableOpacity`
+  width: 75px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+`;
+
+export const TimeItemText = styled.Text`
+  font-size: 16px;
+`;
